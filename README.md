@@ -14,9 +14,9 @@ JSON should have the following format:
         "num_questions": 30,
         "time_limit": 26,
         "topics": [
-          "Water Efficiency (WE)"
+            "Water Efficiency (WE)"
         ]
-  },
+    },
     {
     "id": 1,
     "question": "Question content",

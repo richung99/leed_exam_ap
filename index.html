@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LEED BD+C Practice Exam</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>LEED BD+C Practice Exam</h1>
+
+  <!-- Floating Timer -->
+  <div id="timer" class="floating-timer"></div>
+
+  <!-- Setup Section -->
+  <section id="setup">
+    <h2>Exam Setup</h2>
+
+    <label>Number of Questions:</label>
+    <input type="number" id="numQuestions" min="10" max="100" value="10"><br><br>
+
+    <label>Time Limit (minutes):</label>
+    <input type="number" id="timeLimit" value="12"><br>
+    <small>(auto-updates ≈ 1.2 min × # questions)</small><br><br>
+
+    <label>Filter by Topics:</label><br>
+    <div id="topicContainer"></div><br>
+
+    <button id="downloadConfigBtn" type="button">Download Config</button>
+    <hr>
+
+    <label>Upload Questions JSON to Start Exam:</label>
+    <input type="file" id="questionFile" accept=".json"><br><br>
+    <button id="startExamBtn" type="button">Start Exam</button>
+
+    <hr>
+    <!-- Embedded Base64 Helper -->
+    <details>
+      <summary style="cursor:pointer;font-weight:bold;color:#2c3e50;">
+        🔧 Open File Helper (Generate questions.json from Base64)
+      </summary>
+      <div style="margin-top:10px;">
+        <p>Paste Base64 text from ChatGPT and click <b>Download JSON</b>.</p>
+        <textarea id="b64Helper" style="width:100%;height:200px;"></textarea><br>
+        <button id="helperDownloadBtn" type="button">Download JSON</button>
+      </div>
+    </details>
+  </section>
+
+  <!-- Exam Section -->
+  <section id="exam" style="display:none;">
+    <form id="examForm" autocomplete="off"></form>
+    <button id="submitBtn" type="button">Submit</button>
+  </section>
+
+  <!-- Results Section -->
+  <section id="result" style="display:none;">
+    <h2>Results Summary</h2>
+    <p id="score"></p>
+    <div id="breakdown"></div>
+
+    <h3>Review</h3>
+    <div id="review"></div>
+
+    <div class="results-actions">
+      <button id="downloadResultsBtn" type="button">Download results.json</button>
+      <button id="restartBtn" type="button">Restart</button>
+    </div>
+  </section>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

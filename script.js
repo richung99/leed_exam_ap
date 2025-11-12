@@ -64,21 +64,41 @@ document.addEventListener("DOMContentLoaded", () => {
     link.click();
   });
 
-  // Start Exam
-  document.getElementById("startExamBtn").addEventListener("click", () => {
-    const fileInput = document.getElementById("questionFile");
-    if (!fileInput.files[0]) return alert("Upload a questions.json file first!");
-    const reader = new FileReader();
-    reader.onload = e => {
-      try {
-        const questions = JSON.parse(e.target.result);
-        startExam(questions);
-      } catch (err) {
-        alert("Invalid questions.json: " + err.message);
+  // Start Exam (now driven entirely by questions.json)
+document.getElementById("startExamBtn").addEventListener("click", () => {
+  const fileInput = document.getElementById("questionFile");
+  if (!fileInput.files[0]) return alert("Upload a questions.json file first!");
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      // Expect structure { exam: {...}, questions: [...] }
+      if (!data.questions || !data.exam) {
+        alert("Invalid format. The file must contain 'exam' and 'questions' sections.");
+        return;
       }
-    };
-    reader.readAsText(fileInput.files[0]);
-  });
+
+      const { num_questions, time_limit } = data.exam;
+      selectedQuestions = data.questions.slice(0, num_questions);
+      startExamWithParams(selectedQuestions, time_limit);
+    } catch (err) {
+      alert("Invalid questions.json: " + err.message);
+    }
+  };
+  reader.readAsText(fileInput.files[0]);
+});
+
+function startExamWithParams(questions, timeLimit) {
+  clearInterval(timer);
+  document.getElementById("setup").style.display = "none";
+  document.getElementById("exam").style.display = "block";
+
+  loadExam(questions);
+  startTimer(timeLimit * 60);
+}
+
 
   // Submit Exam
   document.getElementById("submitBtn").addEventListener("click", gradeExam);
@@ -126,7 +146,6 @@ function startExam(questions) {
   document.getElementById("exam").style.display = "block";
 
   // Use requested count
-  const n = parseInt(document.getElementById("numQuestions").value);
   selectedQuestions = questions.slice(0, n);
 
   loadExam(selectedQuestions);

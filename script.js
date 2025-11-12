@@ -6,24 +6,43 @@ let timeRemaining = 0;
 
 // ===== Init =====
 document.addEventListener("DOMContentLoaded", () => {
-  const topics = [
-    "Sustainable Sites (SS)",
-    "Water Efficiency (WE)",
-    "Energy & Atmosphere (EA)",
-    "Materials & Resources (MR)",
-    "Indoor Environmental Quality (EQ)",
-    "Innovation (IN)",
-    "Regional Priority (RP)"
-  ];
+  const topicGroups = {
+    "Green Associate Core": [
+      "LEED Process & Certification (LP)",
+      "Integrative Strategies (IS)",
+      "Project Surroundings & Public Outreach (PS)",
+      "Synergies & Trade-offs (ST)",
+      "Standards, Codes & Regulations (SC)",
+      "Occupant Comfort & Education (OC)",
+      "Performance Metrics & Reporting (PM)"
+    ],
+    "LEED AP BD+C Credits": [
+      "Location & Transportation (LT)",
+      "Sustainable Sites (SS)",
+      "Water Efficiency (WE)",
+      "Energy & Atmosphere (EA)",
+      "Materials & Resources (MR)",
+      "Indoor Environmental Quality (EQ)",
+      "Innovation (IN)",
+      "Regional Priority (RP)"
+    ]
+  };
+
   const container = document.getElementById("topicContainer");
-  topics.forEach(t => {
-    const c = document.createElement("input");
-    c.type = "checkbox"; c.value = t; c.id = "topic_" + t;
-    const label = document.createElement("label");
-    label.htmlFor = c.id; label.textContent = " " + t;
-    container.appendChild(c); container.appendChild(label);
-    container.appendChild(document.createElement("br"));
-  });
+  for (const [group, list] of Object.entries(topicGroups)) {
+    const heading = document.createElement("h4");
+    heading.textContent = group;
+    container.appendChild(heading);
+    list.forEach(t => {
+      const c = document.createElement("input");
+      c.type = "checkbox"; c.value = t; c.id = "topic_" + t;
+      const label = document.createElement("label");
+      label.htmlFor = c.id; label.textContent = " " + t;
+      container.appendChild(c); container.appendChild(label);
+      container.appendChild(document.createElement("br"));
+    });
+  }
+
 
   // Auto-time scaling
   document.getElementById("numQuestions").addEventListener("input", e => {

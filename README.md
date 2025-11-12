@@ -10,6 +10,13 @@ Enter number of questions, time limit, and topic filter based on LEED section. T
 JSON should have the following format:
 ```
 [
+    "exam": {
+        "num_questions": 30,
+        "time_limit": 26,
+        "topics": [
+          "Water Efficiency (WE)"
+        ]
+  },
     {
     "id": 1,
     "question": "Question content",

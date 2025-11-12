@@ -1,6 +1,8 @@
 # LEED BD+C Practice Exam Tool
 Practice tool for LEED BD+C exam questions. Generates a config.json file that can be uploaded to a LLM like ChatGPT to generate questions. Allows upload for a question.json that formats practice questions into an online test with timer. After test is submitted, it is graded and produces a results.json that can be analyzed or used for review.
 
+Download each of the files to the same directory, then open index.html in a local browser.
+
 ## Exam Setup
 Enter number of questions, time limit, and topic filter based on LEED section. These inputs are used to generate a config.json file that can be uploaded to an LLM to generate practice questions.
 
